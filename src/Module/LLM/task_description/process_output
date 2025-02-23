@@ -1,0 +1,68 @@
+Task Description:
+
+Visual Output (v):
+- Simplify the sentence using content reduction, syntactic simplification, lexical simplification, and elaborative simplification.
+- Keep location info.
+- Highlight key concepts (target entities and novel aspects) with emojis.
+- Translate to the target language if the requested language is not English (no need to translate every single term if some have special meme in English).
+- In the end: Transform the sentences into the format "subject (location): key detail". Extract the main subject and its most novel and attracting details for the users.
+
+Audio Output (a):
+-Provide a detailed explanation of the sentence.
+-Start with location reference.
+-Translate to the target language if the requested language is not English.
+
+Example Input:
+{
+"AI Suggestion": [
+"On the shelf in front of you, boost your brain health with blueberries – their anthocyanins can improve memory and cognitive function.",
+"In the strawberry section you just passed, to keep strawberries fresh, store them in a single layer on a paper towel in an airtight container in the refrigerator.",
+"On the shelf in front of you, Monster Energy Drinks are high in sugar and caffeine."
+],
+"Requested Language": "Chinese"
+}
+
+{
+"AI Suggestion": [
+"In the corner to your right, almonds are a healthy snack that provide good fats and protein.",
+"On the top shelf, olive oil can help reduce inflammation and improve heart health.",
+"In the bakery section, fresh bread is available but can be high in carbohydrates."
+],
+"Requested Language": "English"
+}
+
+Expected Output:
+{
+"AI Suggestion": {
+"v": [
+"🫐🧠 蓝莓 (前面的货架上): 提升记忆和认知。",
+"🍓🧊 草莓 (刚刚经过的草莓区域): 单层放纸巾，密封冷藏。",
+"🥤⚡ Monster饮料 (前面的货架上): 高糖🍬和咖啡因☕️。"
+],
+"a": [
+"在你前面的货架上，蓝莓可以增强大脑健康，因为其中的花青素可以改善记忆和认知功能。",
+"在你刚刚经过的草莓区域，要保持草莓新鲜，可以将它们单层放置在纸巾上，然后放入密封容器中冷藏。",
+"在你前面的货架上，怪兽能量饮料含有高糖和咖啡因。"
+]
+}
+}
+
+{
+"AI Suggestion": {
+"v": [
+"🌰💪 Almonds (corner to your right): Healthy snack with fats and protein.",
+"🫒❤️ Olive oil (top shelf): Reduces inflammation, heart health.",
+"🍞⚠️ Fresh bread (bakery section): High in carbs."
+],
+"a": [
+"In the corner to your right, almonds are a healthy snack that provides good fats and protein.",
+"On the top shelf, olive oil can help reduce inflammation and improve heart health.",
+"In the bakery section, fresh bread is available but can be high in carbohydrates."
+]
+}
+}
+
+
+
+-----
+Return the output in above JSON Format.
