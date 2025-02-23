@@ -51,14 +51,12 @@ class DevicePanel:
 
     def set_default_device_config(self, path):
         self.pid_num = os.path.join("p1", "01")
-        self.task_name = "travel_blog"
         self.output_modality = AUDIO_OUTPUT
         self.audio_device_idx = 0
-        self.naive = "UbiWriter"
         self.gaze_recording = False
-        self.gpt_response_style = "Danmaku"
+        self.gpt_response_style = "Live Comments"
         save_device_config(path, "pid", self.pid_num)
-        save_device_config(path, "task", self.task_name)
+        # save_device_config(path, "task", self.task_name)
         # save_device_config(path, "output", self.output_modality)
         save_device_config(path, "audio_device", self.audio_device_idx)
         # save_device_config(path, "naive", self.naive)
@@ -71,7 +69,7 @@ class DevicePanel:
         try:
             self.df = pandas.read_csv(self.path)
             self.pid_num = self.df[self.df['item'] == 'pid']['details'].item()
-            self.task_name = self.df[self.df['item'] == 'task']['details'].item()
+            # self.task_name = self.df[self.df['item'] == 'task']['details'].item()
             # self.output_modality = self.df[self.df['item'] == 'output']['details'].item()
             self.audio_device_idx = self.df[self.df['item'] == 'audio_device']['details'].item()
             # self.naive = self.df[self.df['item'] == 'naive']['details'].item()
@@ -84,7 +82,7 @@ class DevicePanel:
             self.set_default_device_config(self.path)
             self.df = pandas.read_csv(self.path)
             self.pid_num = self.df[self.df['item'] == 'pid']['details'].item()
-            self.task_name = self.df[self.df['item'] == 'task']['details'].item()
+            # self.task_name = self.df[self.df['item'] == 'task']['details'].item()
             # self.output_modality = self.df[self.df['item'] == 'output']['details'].item()
             self.audio_device_idx = self.df[self.df['item'] == 'audio_device']['details'].item()
             # self.naive = self.df[self.df['item'] == 'naive']['details'].item()
@@ -95,9 +93,9 @@ class DevicePanel:
         self.pid_num = self.pid_txt.get_text()
         self.df.loc[self.df['item'] == "pid", ['details']] = self.pid_num
 
-    def update_task(self):
-        self.task_name = self.task_var.get()
-        self.df.loc[self.df['item'] == "task", ['details']] = self.task_name
+    # def update_task(self):
+    #     self.task_name = self.task_var.get()
+    #     self.df.loc[self.df['item'] == "task", ['details']] = self.task_name
 
     def update_naive(self):
         self.naive = self.naive_var.get()
@@ -121,7 +119,7 @@ class DevicePanel:
 
     def on_close_window(self):
         self.update_pid()
-        self.update_task()
+        # self.update_task()
         # self.update_output()
         self.update_screen_recording_source()
         # self.update_naive()
@@ -156,17 +154,17 @@ class DevicePanel:
         self.pid_txt = get_entry_with_placeholder(master=self.pid_frame, placeholder=self.pid_num)
         self.pid_txt.pack(side="left", padx=5)
 
-        self.task_label = get_label(self.task_frame, text="Task", pattern=0)
-        self.task_label.pack(side="left", padx=5)
-
-        self.task_var = tk.StringVar()
-        self.task_var.set(self.task_name)
-
-        self.task_list = get_possible_tasks()
-        self.task_options = get_dropdown_menu(self.task_frame, values=self.task_list,
-                                              variable=self.task_var)
-
-        self.task_options.pack(side="left", padx=5)
+        # self.task_label = get_label(self.task_frame, text="Task", pattern=0)
+        # self.task_label.pack(side="left", padx=5)
+        #
+        # self.task_var = tk.StringVar()
+        # self.task_var.set(self.task_name)
+        #
+        # self.task_list = get_possible_tasks()
+        # self.task_options = get_dropdown_menu(self.task_frame, values=self.task_list,
+        #                                       variable=self.task_var)
+        #
+        # self.task_options.pack(side="left", padx=5)
 
         self.gpt_response_style_label = get_label(self.task_frame, text="GPT Response Style", pattern=0)
         self.gpt_response_style_label.pack(side="left", padx=5)

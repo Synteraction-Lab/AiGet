@@ -197,7 +197,7 @@ class PANDAExpFrontend(ctk.CTk):
         if not os.path.isfile(config_path):
             pid_num = os.path.join("p1", "01")
             audio_device_idx = 0
-            task_name = "daily_activity_learning"
+            # task_name = "daily_activity_learning"
             gpt_response_style = "Live Comments"
         else:
             try:
@@ -205,13 +205,13 @@ class PANDAExpFrontend(ctk.CTk):
                 pid_num = df[df['item'] == 'pid']['details'].item()
                 audio_device_idx = df[df['item'] == 'audio_device']['details'].item()
                 gpt_response_style = df[df['item'] == 'gpt_response_style']['details'].item()
-                task_name = df[df['item'] == 'task']['details'].item()
+                # task_name = df[df['item'] == 'task']['details'].item()
             except Exception as e:
                 print("Config file has an error!", e)
                 pid_num = os.path.join("p1", "01")
                 audio_device_idx = 0
                 gpt_response_style = "Live Comments"
-                task_name = "daily_activity_learning"
+                # task_name = "daily_activity_learning"
 
         # Set up path
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -223,11 +223,11 @@ class PANDAExpFrontend(ctk.CTk):
 
         self.audio_device_idx = audio_device_idx
 
-        instruct_prompt = load_task_description(task_name)
-        self.conversation_history = [{"role": "system",
-                                      "content": [{"type": "text",
-                                                   "text": instruct_prompt}]}]
-        self.instruction_prompt_display.insert(tk.INSERT, instruct_prompt)
+        # instruct_prompt = load_task_description(task_name)
+        # self.conversation_history = [{"role": "system",
+        #                               "content": [{"type": "text",
+        #                                            "text": instruct_prompt}]}]
+        # self.instruction_prompt_display.insert(tk.INSERT, instruct_prompt)
 
         ai_history_path = os.path.join(self.folder_path, 'ai_suggestions.json')
         if os.path.exists(ai_history_path):
@@ -393,9 +393,9 @@ class PANDAExpFrontend(ctk.CTk):
             self._image_refs.extend(f.result() for f in concurrent.futures.as_completed(futures))
 
     def send_data_thread(self, image, user_input, initiation="timer"):
-        self.conversation_history = [{"role": "system",
-                                      "content": [{"type": "text",
-                                                   "text": self.instruction_prompt_display.get('1.0', tk.END)}]}]
+        # self.conversation_history = [{"role": "system",
+        #                               "content": [{"type": "text",
+        #                                            "text": self.instruction_prompt_display.get('1.0', tk.END)}]}]
 
         try:
             if self.simulate:
