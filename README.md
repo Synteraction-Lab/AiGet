@@ -1,6 +1,8 @@
 # AiGet
 A software that enables you to gain knowledge seamlessly on OHMD with the assistance of LLM in everyday life.
 
+Check the Demo Here: [Link](https://code.runzecai.com/aiget-demo/).
+
 ## Publications
 - [AiGet: Transforming Everyday Moments into Hidden Knowledge Discovery with AI Assistance on Smart Glasses](https://doi.org/10.1145/3706598.3713953), CHI'2025
   - Arxiv: [PDF](https://arxiv.org/pdf/2501.16240).
