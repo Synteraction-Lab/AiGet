@@ -53,14 +53,9 @@ class DevicePanel:
         self.pid_num = os.path.join("p1", "01")
         self.output_modality = AUDIO_OUTPUT
         self.audio_device_idx = 0
-        self.gaze_recording = False
         self.gpt_response_style = "Live Comments"
         save_device_config(path, "pid", self.pid_num)
-        # save_device_config(path, "task", self.task_name)
-        # save_device_config(path, "output", self.output_modality)
         save_device_config(path, "audio_device", self.audio_device_idx)
-        # save_device_config(path, "naive", self.naive)
-        save_device_config(path, "gaze_recording", self.gaze_recording)
         save_device_config(path, "gpt_response_style", self.gpt_response_style)
 
     def load_config(self):
@@ -69,11 +64,7 @@ class DevicePanel:
         try:
             self.df = pandas.read_csv(self.path)
             self.pid_num = self.df[self.df['item'] == 'pid']['details'].item()
-            # self.task_name = self.df[self.df['item'] == 'task']['details'].item()
-            # self.output_modality = self.df[self.df['item'] == 'output']['details'].item()
             self.audio_device_idx = self.df[self.df['item'] == 'audio_device']['details'].item()
-            # self.naive = self.df[self.df['item'] == 'naive']['details'].item()
-            self.gaze_recording = self.df[self.df['item'] == 'gaze_recording']['details'].item()
             self.gpt_response_style = self.df[self.df['item'] == 'gpt_response_style']['details'].item()
         except:
             print("Config file has an error! device_panel.py")
@@ -82,36 +73,14 @@ class DevicePanel:
             self.set_default_device_config(self.path)
             self.df = pandas.read_csv(self.path)
             self.pid_num = self.df[self.df['item'] == 'pid']['details'].item()
-            # self.task_name = self.df[self.df['item'] == 'task']['details'].item()
-            # self.output_modality = self.df[self.df['item'] == 'output']['details'].item()
+
             self.audio_device_idx = self.df[self.df['item'] == 'audio_device']['details'].item()
-            # self.naive = self.df[self.df['item'] == 'naive']['details'].item()
-            self.gaze_recording = self.df[self.df['item'] == 'gaze_recording']['details'].item()
             self.gpt_response_style = self.df[self.df['item'] == 'gpt_response_style']['details'].item()
 
     def update_pid(self):
         self.pid_num = self.pid_txt.get_text()
         self.df.loc[self.df['item'] == "pid", ['details']] = self.pid_num
 
-    # def update_task(self):
-    #     self.task_name = self.task_var.get()
-    #     self.df.loc[self.df['item'] == "task", ['details']] = self.task_name
-
-    def update_naive(self):
-        self.naive = self.naive_var.get()
-        self.df.loc[self.df['item'] == "naive", ['details']] = self.naive
-
-    def update_gaze_recording(self):
-        self.gaze_recording = self.gaze_recording_var.get()
-        self.df.loc[self.df['item'] == "gaze_recording", ['details']] = self.gaze_recording
-
-    def update_output(self):
-        self.output_modality = self.output_var.get()
-        self.df.loc[self.df['item'] == "output", ['details']] = self.output_modality
-
-    def update_screen_recording_source(self):
-        self.audio_device_idx = self.audio_device.get()
-        self.df.loc[self.df['item'] == "audio_device", ['details']] = self.audio_device_idx
 
     def update_gpt_response_style(self):
         self.gpt_response_style = self.gpt_response_style_var.get()
@@ -119,11 +88,6 @@ class DevicePanel:
 
     def on_close_window(self):
         self.update_pid()
-        # self.update_task()
-        # self.update_output()
-        self.update_screen_recording_source()
-        # self.update_naive()
-        self.update_gaze_recording()
         self.update_gpt_response_style()
         self.df.to_csv(self.path, index=False)
         if self.parent_object_save_command is not None:
@@ -145,9 +109,6 @@ class DevicePanel:
 
         self.recording_device_frame = tk.Frame(self.frame)
         self.recording_device_frame.pack(pady=10, anchor="w")
-
-        self.gaze_recording_frame = tk.Frame(self.frame)
-        self.gaze_recording_frame.pack(pady=10, anchor="w")
 
         self.pid_label = get_label(self.pid_frame, text="PID", pattern=0)
         self.pid_label.pack(side="left", padx=5)
@@ -172,38 +133,11 @@ class DevicePanel:
         self.gpt_response_style_var = tk.StringVar()
         self.gpt_response_style_var.set(self.gpt_response_style)
 
-        self.gpt_response_style_list = ["Danmaku", "Live Comments", "Single Comment with Engaging Conversational Style"]
+        self.gpt_response_style_list = ["Live Comments"]
         self.gpt_response_style_options = get_dropdown_menu(self.task_frame, values=self.gpt_response_style_list,
                                                 variable=self.gpt_response_style_var)
 
         self.gpt_response_style_options.pack(side="left", padx=5)
-
-
-        # self.output_label = get_label(self.task_frame, text="Output", pattern=0)
-        # self.output_label.pack(side="left", padx=5)
-        #
-        # self.output_var = tk.StringVar()
-        # self.output_var.set(self.output_modality)
-        #
-        # self.output_list = [VISUAL_OUTPUT, AUDIO_OUTPUT]
-        # self.output_options = get_dropdown_menu(self.task_frame, values=self.output_list,
-        #                                         variable=self.output_var)
-        #
-        # self.output_options.pack(side="left", padx=5)
-
-        # ubiwriter vs naive llm
-        # self.naive_label = get_label(self.task_frame, text="System Type", pattern=0)
-        # self.naive_label.pack(side="left", padx=5)
-        #
-        # self.naive_var = tk.StringVar()
-        # self.naive_var.set(self.naive)
-        #
-        # self.naive_list = ["UbiWriter", "Naive LLM"]
-        # self.naive_options = get_dropdown_menu(self.task_frame, values=self.naive_list,
-        #                                        variable=self.naive_var)
-        #
-        # self.naive_options.pack(side="left", padx=5)
-
 
         # audio device
         self.audio_device = tk.StringVar()
@@ -216,12 +150,6 @@ class DevicePanel:
 
         self.audio_options.grid(column=1, row=2, columnspan=1, padx=10, pady=10, sticky="w")
 
-        self.gaze_recording_var = customtkinter.BooleanVar()
-        self.gaze_recording_var.set(self.gaze_recording)
-        self.gaze_recording_checkbox = get_checkbutton(self.gaze_recording_frame, text="Gaze Recording",
-                                                                 # command=self.update_gaze_recording,
-                                                                 variable=self.gaze_recording_var)
-        self.gaze_recording_checkbox.pack(side="left", padx=5)
 
         self.close_frame = tk.Frame(self.frame)
         self.close_frame.pack(pady=10)

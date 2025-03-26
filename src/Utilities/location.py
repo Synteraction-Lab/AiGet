@@ -101,9 +101,11 @@ def get_current_location():
         else:
             # use the IP address to get the location
             return get_current_location_based_on_ip()
-    except Exception as e:
-        print(f"Error: {e}")
-        return LOCATION
+    except:
+        try:
+            return get_current_location_based_on_ip()
+        except:
+            return LOCATION
 
 
 

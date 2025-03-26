@@ -29,7 +29,6 @@ from src.Module.LLM.LLMPipeline import get_llm_response
 from src.Module.Vision.Yolo.yolov8s import ObjectDetector
 from src.Storage.reader import load_task_description
 from src.UI.UI_config import MAIN_GREEN_COLOR
-from src.UI.danmuku import DanmakuApp
 from src.UI.device_panel import DevicePanel
 from src.UI.live_comments import LiveCommentsApp
 from src.Utilities.constant import config_path
@@ -235,9 +234,6 @@ class PANDAExpFrontend(ctk.CTk):
             print("AI suggestions loaded: ", self.AI_suggestion_history)
 
         if self.mode != "Desktop":
-            if self.gpt_response_style == "Danmaku":
-                self.danmaku = DanmakuApp(self.black_window)
-            else:
                 self.danmaku = LiveCommentsApp(self.black_window)
         self.run()
 
@@ -393,10 +389,6 @@ class PANDAExpFrontend(ctk.CTk):
             self._image_refs.extend(f.result() for f in concurrent.futures.as_completed(futures))
 
     def send_data_thread(self, image, user_input, initiation="timer"):
-        # self.conversation_history = [{"role": "system",
-        #                               "content": [{"type": "text",
-        #                                            "text": self.instruction_prompt_display.get('1.0', tk.END)}]}]
-
         try:
             if self.simulate:
                 location = SIMULATED_LOCATION
@@ -423,7 +415,6 @@ class PANDAExpFrontend(ctk.CTk):
                 history = None
 
             response, location = get_llm_response(image_queue=image.copy(), text=send_message, user_profile=None,
-                                                  instruction=self.instruction_prompt_display.get('1.0', tk.END),
                                                   history=history, user_comment=user_input,
                                                   language=self.response_language,
                                                   last_response=self.last_ai_response,
