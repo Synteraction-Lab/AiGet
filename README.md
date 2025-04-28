@@ -6,8 +6,8 @@ Check the Demo Here: [Link](https://code.runzecai.com/aiget-demo/).
 
 ## Publications
 
-- [AiGet: Transforming Everyday Moments into Hidden Knowledge Discovery with AI Assistance on Smart Glasses](https://doi.org/10.1145/3706598.3713953), CHI'2025
-  - Arxiv: [PDF](https://arxiv.org/pdf/2501.16240).
+- [AiGet: Transforming Everyday Moments into Hidden Knowledge Discovery with AI Assistance on Smart Glasses](https://dl.acm.org/doi/10.1145/3706598.3713953), CHI'2025
+  - [PDF](https://dl.acm.org/doi/pdf/10.1145/3706598.3713953).
 
 ```
 Runze Cai, Nuwan Janaka, Hyeongcheol Kim, Yang Chen, Shengdong Zhao,
